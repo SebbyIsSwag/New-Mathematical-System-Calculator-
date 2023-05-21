@@ -13,6 +13,111 @@ Top_Small = float("-inf")
 # Define the unsigned infinity
 u_infinity = float("inf")
 
+class Point5D(Point4D):
+    def __init__(self, x, y, z, w, c_5):
+        super().__init__(x, y, z, w)
+        self.c_5 = c_5
+
+class Point6D(Point5D):
+    def __init__(self, x, y, z, w, c_5, c_6):
+        super().__init__(x, y, z, w, c_5)
+        self.c_6 = c_6
+
+class Point7D(Point6D):
+    def __init__(self, x, y, z, w, c_5, c_6, c_7):
+        super().__init__(x, y, z, w, c_5, c_6)
+        self.c_7 = c_7
+
+class Point8D(Point7D):
+    def __init__(self, x, y, z, w, c_5, c_6, c_7, c_8):
+        super().__init__(x, y, z, w, c_5, c_6, c_7)
+        self.c_8 = c_8
+
+class HyperHyperSphere:
+    def __init__(self, center, radius, dimensions):
+        self.center = center
+        self.radius = radius
+        self.dimensions = dimensions
+
+    def volume(self):
+        return (math.pi**(self.dimensions/2) / math.gamma(self.dimensions/2 + 1)) * self.radius**self.dimensions
+
+    def surface_area(self):
+        return (2 * math.pi**(self.dimensions/2) / math.gamma(self.dimensions/2)) * self.radius**(self.dimensions-1)
+
+
+class Point3D:
+    def __init__(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
+
+class Point4D(Point3D):
+    def __init__(self, x, y, z, w):
+        super().__init__(x, y, z)
+        self.w = w
+
+class Sphere:
+    def __init__(self, center, radius):
+        self.center = center
+        self.radius = radius
+
+    def volume(self):
+        return (4/3) * math.pi * self.radius**3
+
+    def surface_area(self):
+        return 4 * math.pi * self.radius**2
+
+class Hypersphere(Sphere):
+    def __init__(self, center, radius, dimensions):
+        super().__init__(center, radius)
+        self.dimensions = dimensions
+
+    def volume(self):
+        return (math.pi**(self.dimensions/2) / math.gamma(self.dimensions/2 + 1)) * self.radius**self.dimensions
+
+    def surface_area(self):
+        return (2 * math.pi**(self.dimensions/2) / math.gamma(self.dimensions/2)) * self.radius**(self.dimensions-1)
+
+
+class Equation:
+    def __init__(self, lhs, rhs):
+        self.lhs = lhs
+        self.rhs = rhs
+
+    def solve(self):
+        return self.rhs - self.lhs
+
+class Sum:
+    def __init__(self, terms):
+        self.terms = terms
+
+    def evaluate(self, x=None, y=None):
+        if x is None and y is None:
+            return sum(self.terms)
+        elif x is not None and y is None:
+            return sum(term.evaluate(x) for term in self.terms)
+        elif x is not None and y is not None:
+            return sum(term.evaluate(x, y) for term in self.terms)
+
+class Circle:
+    def __init__(self, center, radius):
+        self.center = center
+        self.radius = radius
+
+    def area(self):
+        return math.pi * self.radius**2
+
+    def circumference(self):
+        return 2 * math.pi * self.radius
+
+    def contains_point(self, point):
+        dx = point[0] - self.center[0]
+        dy = point[1] - self.center[1]
+        distance = math.sqrt(dx**2 + dy**2)
+        return distance <= self.radius
+
+
 class TrigonometricNumber(Number):
     def __init__(self, value):
         super().__init__(value)
