@@ -1,4 +1,5 @@
 import random
+import cmath
 import math
 import statistics
 import matplotlib.pyplot as plt
@@ -11,6 +12,40 @@ Top_Small = float("-inf")
 
 # Define the unsigned infinity
 u_infinity = float("inf")
+
+class Polar:
+    def __init__(self, r, theta):
+        self.r = r
+        self.theta = theta
+
+    def __str__(self):
+        return f"{self.r}∠{self.theta}"
+
+    def __repr__(self):
+        return str(self)
+
+    def to_complex(self):
+        real = self.r * math.cos(self.theta)
+        imag = self.r * math.sin(self.theta)
+        return complex(real, imag)
+
+
+class Octonion:
+    def __init__(self, a, b, c, d, e, f, g, h):
+        self.a = a
+        self.b = b
+        self.c = c
+        self.d = d
+        self.e = e
+        self.f = f
+        self.g = g
+        self.h = h
+
+    def __str__(self):
+        return f"{self.a} + {self.b}i + {self.c}j + {self.d}k + {self.e}l + {self.f}m + {self.g}n + {self.h}o"
+
+    def __repr__(self):
+        return str(self)
 
 # Define the square root function
 def sqrt(x):
