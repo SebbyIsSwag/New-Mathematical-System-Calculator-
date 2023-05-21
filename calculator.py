@@ -13,6 +13,36 @@ Top_Small = float("-inf")
 # Define the unsigned infinity
 u_infinity = float("inf")
 
+class TrigonometricNumber(Number):
+    def __init__(self, value):
+        super().__init__(value)
+
+    def cos(self):
+        return TrigonometricNumber(math.cos(self.value))
+
+    def sin(self):
+        return TrigonometricNumber(math.sin(self.value))
+
+    def tan(self):
+        return TrigonometricNumber(math.tan(self.value))
+
+    def cis(self):
+        real = math.cos(self.value)
+        imag = math.sin(self.value)
+        return ComplexNumber(real, imag)
+
+    def arccos(self):
+        return TrigonometricNumber(math.acos(self.value))
+
+    def arcsin(self):
+        return TrigonometricNumber(math.asin(self.value))
+
+    def arctan(self):
+        return TrigonometricNumber(math.atan(self.value))
+
+    def arccis(self):
+        return TrigonometricNumber(math.atan2(self.value.imag, self.value.real))
+
 class NAdicNumber:
     def __init__(self, base, digits):
         self.base = base
