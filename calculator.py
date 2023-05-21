@@ -13,6 +13,36 @@ Top_Small = float("-inf")
 # Define the unsigned infinity
 u_infinity = float("inf")
 
+class ModularNumber:
+    def __init__(self, value, modulus):
+        self.value = value % modulus
+        self.modulus = modulus
+
+    def __repr__(self):
+        return f"{self.value} (mod {self.modulus})"
+
+    def __add__(self, other):
+        if isinstance(other, ModularNumber) and self.modulus == other.modulus:
+            value = (self.value + other.value) % self.modulus
+            return ModularNumber(value, self.modulus)
+        raise TypeError("Unsupported operand type for addition")
+
+    def __sub__(self, other):
+        if isinstance(other, ModularNumber) and self.modulus == other.modulus:
+            value = (self.value - other.value) % self.modulus
+            return ModularNumber(value, self.modulus)
+        raise TypeError("Unsupported operand type for subtraction")
+
+    def __mul__(self, other):
+        if isinstance(other, ModularNumber) and self.modulus == other.modulus:
+            value = (self.value * other.value) % self.modulus
+            return ModularNumber(value, self.modulus)
+        raise TypeError("Unsupported operand type for multiplication")
+
+    def mod(self, modulus):
+        return ModularNumber(self.value, modulus)
+
+
 class SplitQuaternion:
     def __init__(self, real, split_imaginary, imaginary_1, imaginary_2):
         self.real = real
