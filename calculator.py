@@ -13,6 +13,47 @@ Top_Small = float("-inf")
 # Define the unsigned infinity
 u_infinity = float("inf")
 
+class PolygonalNumber:
+    def __init__(self, n, sides):
+        self.n = n
+        self.sides = sides
+
+    def value(self):
+        return self.n * (self.n - 1) // 2 * (self.sides - 2) + self.n
+
+class Line:
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+
+    def length(self):
+        # Calculate the Euclidean distance between the start and end points
+        return math.sqrt((self.start.x - self.end.x)**2 + (self.start.y - self.end.y)**2)
+
+class Polygon:
+    def __init__(self, vertices):
+        self.vertices = vertices
+
+    def perimeter(self):
+        perimeter = 0
+        num_vertices = len(self.vertices)
+        for i in range(num_vertices):
+            start = self.vertices[i]
+            end = self.vertices[(i + 1) % num_vertices]
+            line = Line(start, end)
+            perimeter += line.length()
+        return perimeter
+
+    def area(self):
+        area = 0
+        num_vertices = len(self.vertices)
+        for i in range(num_vertices):
+            current = self.vertices[i]
+            next = self.vertices[(i + 1) % num_vertices]
+            area += (current.x * next.y - next.x * current.y)
+        return abs(area) / 2
+
+
 class Point5D(Point4D):
     def __init__(self, x, y, z, w, c_5):
         super().__init__(x, y, z, w)
