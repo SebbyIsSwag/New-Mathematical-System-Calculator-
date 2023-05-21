@@ -13,6 +13,163 @@ Top_Small = float("-inf")
 # Define the unsigned infinity
 u_infinity = float("inf")
 
+class Tessarine:
+    def __init__(self, a, b, c, d):
+        self.a = a  # Real part
+        self.b = b  # Imaginary unit i
+        self.c = c  # Imaginary unit j
+        self.d = d  # Imaginary unit k
+
+    def __add__(self, other):
+        if isinstance(other, Tessarine):
+            return Tessarine(self.a + other.a, self.b + other.b, self.c + other.c, self.d + other.d)
+        raise TypeError("Unsupported operand type for +")
+
+    def __sub__(self, other):
+        if isinstance(other, Tessarine):
+            return Tessarine(self.a - other.a, self.b - other.b, self.c - other.c, self.d - other.d)
+        raise TypeError("Unsupported operand type for -")
+
+    def __mul__(self, other):
+        if isinstance(other, Tessarine):
+            # Perform multiplication according to the tessarine multiplication rules
+            real_part = self.a * other.a - self.b * other.b - self.c * other.c - self.d * other.d
+            i_part = self.a * other.b + self.b * other.a + self.c * other.d - self.d * other.c
+            j_part = self.a * other.c - self.b * other.d + self.c * other.a + self.d * other.b
+            k_part = self.a * other.d + self.b * other.c - self.c * other.b + self.d * other.a
+            return Tessarine(real_part, i_part, j_part, k_part)
+        raise TypeError("Unsupported operand type for *")
+
+
+class Coquaternion:
+    def __init__(self, a, b, c, d):
+        self.a = a  # Real part
+        self.b = b  # Imaginary unit i
+        self.c = c  # Imaginary unit j
+        self.d = d  # Imaginary unit k
+
+    def __add__(self, other):
+        if isinstance(other, Coquaternion):
+            return Coquaternion(self.a + other.a, self.b + other.b, self.c + other.c, self.d + other.d)
+        raise TypeError("Unsupported operand type for +")
+
+    def __sub__(self, other):
+        if isinstance(other, Coquaternion):
+            return Coquaternion(self.a - other.a, self.b - other.b, self.c - other.c, self.d - other.d)
+        raise TypeError("Unsupported operand type for -")
+
+    def __mul__(self, other):
+        if isinstance(other, Coquaternion):
+            # Perform multiplication according to the coquaternion multiplication rules
+            real_part = self.a * other.a - self.b * other.b - self.c * other.c - self.d * other.d
+            i_part = self.a * other.b + self.b * other.a + self.c * other.d - self.d * other.c
+            j_part = self.a * other.c - self.b * other.d + self.c * other.a + self.d * other.b
+            k_part = self.a * other.d + self.b * other.c - self.c * other.b + self.d * other.a
+            return Coquaternion(real_part, i_part, j_part, k_part)
+        raise TypeError("Unsupported operand type for *")
+
+
+class Biquaternion:
+    def __init__(self, a, b, c, d, e, f, g, h, i, j, k):
+        self.a = a  # Real part
+        self.b = b  # Imaginary unit i
+        self.c = c  # Imaginary unit j
+        self.d = d  # Imaginary unit k
+        self.e = e  # Additional imaginary unit I
+        self.f = f  # Additional imaginary unit J
+        self.g = g  # Additional imaginary unit K
+        self.h = h  # Additional imaginary unit IJ
+        self.i = i  # Additional imaginary unit JK
+        self.j = j  # Additional imaginary unit KI
+        self.k = k  # Additional imaginary unit IJK
+
+    def __add__(self, other):
+        if isinstance(other, Biquaternion):
+            return Biquaternion(
+                self.a + other.a, self.b + other.b, self.c + other.c, self.d + other.d,
+                self.e + other.e, self.f + other.f, self.g + other.g,
+                self.h + other.h, self.i + other.i, self.j + other.j, self.k + other.k
+            )
+        raise TypeError("Unsupported operand type for +")
+
+    def __sub__(self, other):
+        if isinstance(other, Biquaternion):
+            return Biquaternion(
+                self.a - other.a, self.b - other.b, self.c - other.c, self.d - other.d,
+                self.e - other.e, self.f - other.f, self.g - other.g,
+                self.h - other.h, self.i - other.i, self.j - other.j, self.k - other.k
+            )
+        raise TypeError("Unsupported operand type for -")
+
+    def __mul__(self, other):
+        if isinstance(other, Biquaternion):
+            # Perform multiplication according to the biquaternion multiplication rules
+            real_part = (
+                self.a * other.a - self.b * other.b - self.c * other.c - self.d * other.d -
+                self.e * other.e - self.f * other.f - self.g * other.g +
+                self.h * other.h + self.i * other.i + self.j * other.j + self.k * other.k
+            )
+            i_part = (
+                self.a * other.b + self.b * other.a + self.c * other.d - self.d * other.c -
+                self.e * other.f - self.f * other.e - self.g * other.h +
+                self.h * other.g + self.i * other.j - self.j * other.i - self.k * other.k
+            )
+            j_part = (
+                self.a * other.c - self.b * other.d + self.c * other.a + self.d * other.b -
+                self.e * other.g + self.f * other.h - self.g * other.e +
+                self.h * other.f - self.i * other.k + self.j * other.i + self.k * other.j
+            )
+            k_part = (
+                self.a * other.d + self.b * other.c - self.c * other.b + self.d * other.a -
+                self.e * other.h + self.f * other.g + self.g * other.f +
+                self.h * other.e + self.i * other.k - self.j * other.j + self.k * other.i
+            )
+            e_part = (
+                self.a * other.e + self.b * other.f + self.c * other.g + self.d * other.h +
+                self.e * other.a + self.f * other.b + self.g * other.c +
+                self.h * other.d + self.i * other.i + self.j * other.j + self.k * other.k
+            )
+            f_part = (
+                self.a * other.f - self.b * other.e + self.c * other.h - self.d * other.g +
+                self.e * other.b - self.f * other.a + self.g * other.d -
+                self.h * other.c + self.i * other.j - self.j * other.i + self.k * other.k
+            )
+            g_part = (
+                self.a * other.g - self.b * other.h - self.c * other.e + self.d * other.f +
+                self.e * other.c - self.f * other.d + self.g * other.a -
+                self.h * other.b + self.i * other.k + self.j * other.j - self.k * other.i
+            )
+            h_part = (
+                self.a * other.h + self.b * other.g - self.c * other.f - self.d * other.e +
+                self.e * other.d + self.f * other.c - self.g * other.b +
+                self.h * other.a + self.i * other.j + self.j * other.i + self.k * other.k
+            )
+            i_part = (
+                self.a * other.i - self.b * other.j + self.c * other.k +
+                self.d * other.i - self.e * other.j + self.f * other.k +
+                self.g * other.i - self.h * other.j + self.i * other.a -
+                self.j * other.b + self.k * other.c
+            )
+            j_part = (
+                self.a * other.j + self.b * other.i - self.c * other.k +
+                self.d * other.j + self.e * other.i - self.f * other.k +
+                self.g * other.j + self.h * other.i - self.i * other.b +
+                self.j * other.a - self.k * other.c
+            )
+            k_part = (
+                self.a * other.k - self.b * other.i + self.c * other.j +
+                self.d * other.k - self.e * other.i + self.f * other.j +
+                self.g * other.k - self.h * other.i - self.i * other.c +
+                self.j * other.b + self.k * other.a
+            )
+            return Biquaternion(
+                real_part, i_part, j_part, k_part,
+                e_part, f_part, g_part,
+                h_part, i_part, j_part, k_part
+            )
+        raise TypeError("Unsupported operand type for *")
+
+
 class Polar:
     def __init__(self, r, theta):
         self.r = r
@@ -125,7 +282,7 @@ def calculate(expression):
 
 # Input validation for mathematical expressions
 def validate_expression(expression):
-    valid_chars = "1234567890/*-abcdefghijjklmnopqrstuvwxyz{()}^+,"
+    valid_chars = "1234567890/*-abcdefghijjklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ{()}^+,_"
     for char in expression:
         if char not in valid_chars:
             print("Error: Invalid character in the expression!")
