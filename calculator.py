@@ -212,11 +212,38 @@ class Sum:
             return sum(term.evaluate(x) for term in self.terms)
         elif x is not None and y is not None:
             return sum(term.evaluate(x, y) for term in self.terms)
+        
+class Point2D:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        return f"({self.x}, {self.y})"
+
+    def distance_to(self, other):
+        return math.sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
+
+    def rotate(self, angle):
+        angle_rad = math.radians(angle)
+        new_x = self.x * math.cos(angle_rad) - self.y * math.sin(angle_rad)
+        new_y = self.x * math.sin(angle_rad) + self.y * math.cos(angle_rad)
+        return Point2D(new_x, new_y)
+
+    def reflect(self):
+        return Point2D(-self.x, -self.y)
+
+    def scale(self, factor):
+        return Point2D(self.x * factor, self.y * factor)
+
 
 class Circle:
     def __init__(self, center, radius):
         self.center = center
         self.radius = radius
+
+    def __repr__(self):
+        return f"Circle(center={self.center}, radius={self.radius})"
 
     def area(self):
         return math.pi * self.radius**2
@@ -224,11 +251,12 @@ class Circle:
     def circumference(self):
         return 2 * math.pi * self.radius
 
-    def contains_point(self, point):
-        dx = point[0] - self.center[0]
-        dy = point[1] - self.center[1]
-        distance = math.sqrt(dx**2 + dy**2)
-        return distance <= self.radius
+    def is_inside(self, point):
+        return self.center.distance_to(point) <= self.radius
+
+    def translate(self, dx, dy):
+        new_center = Point2D(self.center.x + dx, self.center.y + dy)
+        return Circle(new_center, self.radius)
 
 
 class TrigonometricNumber(Number):
