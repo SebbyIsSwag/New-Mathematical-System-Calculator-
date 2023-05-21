@@ -13,6 +13,86 @@ Top_Small = float("-inf")
 # Define the unsigned infinity
 u_infinity = float("inf")
 
+class NAdicNumber:
+    def __init__(self, base, digits):
+        self.base = base
+        self.digits = digits
+
+    def __add__(self, other):
+        if isinstance(other, NAdicNumber) and self.base == other.base:
+            max_digits = max(len(self.digits), len(other.digits))
+            digits_sum = [((self.digits[i] if i < len(self.digits) else 0) +
+                           (other.digits[i] if i < len(other.digits) else 0)) % self.base
+                          for i in range(max_digits)]
+            return self.__class__(self.base, digits_sum)
+        raise TypeError("Unsupported operand type for addition")
+
+    def __sub__(self, other):
+        if isinstance(other, NAdicNumber) and self.base == other.base:
+            max_digits = max(len(self.digits), len(other.digits))
+            digits_diff = [((self.digits[i] if i < len(self.digits) else 0) -
+                            (other.digits[i] if i < len(other.digits) else 0)) % self.base
+                           for i in range(max_digits)]
+            return self.__class__(self.base, digits_diff)
+        raise TypeError("Unsupported operand type for subtraction")
+
+    def __mul__(self, other):
+        if isinstance(other, NAdicNumber) and self.base == other.base:
+            max_digits = len(self.digits) + len(other.digits)
+            digits_prod = [0] * max_digits
+            for i in range(len(self.digits)):
+                for j in range(len(other.digits)):
+                    digits_prod[i + j] += (self.digits[i] * other.digits[j]) % self.base
+            for i in range(max_digits - 1):
+                digits_prod[i + 1] += digits_prod[i] // self.base
+                digits_prod[i] %= self.base
+            return self.__class__(self.base, digits_prod)
+        raise TypeError("Unsupported operand type for multiplication")
+
+
+class PAdicNumber(NAdicNumber):
+    def __init__(self, p, digits):
+        super().__init__(p, digits)
+
+    def distance(self, other):
+        if isinstance(other, PAdicNumber) and self.base == other.base:
+            max_digits = max(len(self.digits), len(other.digits))
+            distance = 0
+            for i in range(max_digits):
+                digit_diff = (self.digits[i] if i < len(self.digits) else 0) - \
+                             (other.digits[i] if i < len(other.digits) else 0)
+                distance += self.base ** i * abs(digit_diff)
+            return distance
+        raise TypeError("Unsupported operand type for distance")
+        
+class DualQuaternion:
+    def __init__(self, real_part, dual_part):
+        self.real = real_part
+        self.dual = dual_part
+
+    def __add__(self, other):
+        if isinstance(other, DualQuaternion):
+            return DualQuaternion(
+                self.real + other.real,
+                self.dual + other.dual
+            )
+        raise TypeError("Unsupported operand type for +")
+
+    def __sub__(self, other):
+        if isinstance(other, DualQuaternion):
+            return DualQuaternion(
+                self.real - other.real,
+                self.dual - other.dual
+            )
+        raise TypeError("Unsupported operand type for -")
+
+    def __mul__(self, other):
+        if isinstance(other, DualQuaternion):
+            real_part = self.real * other.real - self.dual * other.dual
+            dual_part = self.real * other.dual + self.dual * other.real
+            return DualQuaternion(real_part, dual_part)
+        raise TypeError("Unsupported operand type for *")
+
 class Tessarine:
     def __init__(self, a, b, c, d):
         self.a = a  # Real part
