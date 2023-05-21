@@ -13,6 +13,48 @@ Top_Small = float("-inf")
 # Define the unsigned infinity
 u_infinity = float("inf")
 
+class SplitQuaternion:
+    def __init__(self, real, split_imaginary, imaginary_1, imaginary_2):
+        self.real = real
+        self.split_imaginary = split_imaginary
+        self.imaginary_1 = imaginary_1
+        self.imaginary_2 = imaginary_2
+
+    def __repr__(self):
+        return f"{self.real} + {self.split_imaginary}i + {self.imaginary_1}j + {self.imaginary_2}k"
+
+    def __add__(self, other):
+        if isinstance(other, SplitQuaternion):
+            real = self.real + other.real
+            split_imaginary = self.split_imaginary + other.split_imaginary
+            imaginary_1 = self.imaginary_1 + other.imaginary_1
+            imaginary_2 = self.imaginary_2 + other.imaginary_2
+            return SplitQuaternion(real, split_imaginary, imaginary_1, imaginary_2)
+        raise TypeError("Unsupported operand type for addition")
+
+    def __sub__(self, other):
+        if isinstance(other, SplitQuaternion):
+            real = self.real - other.real
+            split_imaginary = self.split_imaginary - other.split_imaginary
+            imaginary_1 = self.imaginary_1 - other.imaginary_1
+            imaginary_2 = self.imaginary_2 - other.imaginary_2
+            return SplitQuaternion(real, split_imaginary, imaginary_1, imaginary_2)
+        raise TypeError("Unsupported operand type for subtraction")
+
+    def __mul__(self, other):
+        if isinstance(other, SplitQuaternion):
+            real = self.real * other.real - self.split_imaginary * other.split_imaginary \
+                   - self.imaginary_1 * other.imaginary_1 - self.imaginary_2 * other.imaginary_2
+            split_imaginary = self.real * other.split_imaginary + self.split_imaginary * other.real \
+                              + self.imaginary_1 * other.imaginary_2 - self.imaginary_2 * other.imaginary_1
+            imaginary_1 = self.real * other.imaginary_1 + self.imaginary_1 * other.real \
+                          + self.split_imaginary * other.imaginary_2 + self.imaginary_2 * other.split_imaginary
+            imaginary_2 = self.real * other.imaginary_2 + self.imaginary_2 * other.real \
+                          - self.split_imaginary * other.imaginary_1 + self.imaginary_1 * other.split_imaginary
+            return SplitQuaternion(real, split_imaginary, imaginary_1, imaginary_2)
+        raise TypeError("Unsupported operand type for multiplication")
+
+
 class PolygonalNumber:
     def __init__(self, n, sides):
         self.n = n
