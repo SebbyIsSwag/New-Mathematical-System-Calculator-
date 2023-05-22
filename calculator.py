@@ -13,6 +13,145 @@ Top_Small = float("-inf")
 # Define the unsigned infinity
 u_infinity = float("inf")
 
+class Trigintaduonion:
+    def __init__(self, components):
+        self.components = components
+
+    def __repr__(self):
+        return f"Trigintaduonion({self.components})"
+
+    def __add__(self, other):
+        if isinstance(other, Trigintaduonion):
+            new_components = [c1 + c2 for c1, c2 in zip(self.components, other.components)]
+            return Trigintaduonion(new_components)
+        raise TypeError("Unsupported operand type for addition")
+
+    def __sub__(self, other):
+        if isinstance(other, Trigintaduonion):
+            new_components = [c1 - c2 for c1, c2 in zip(self.components, other.components)]
+            return Trigintaduonion(new_components)
+        raise TypeError("Unsupported operand type for subtraction")
+    def __mul__(self, other):
+        if isinstance(other, Trigintaduonion):
+            a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z = self.components
+            A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z = other.components
+
+            result_components = [
+                a*A - b*B - c*C - d*D - e*E - f*F - g*G - h*H - i*I - j*J - k*K - l*L - m*M - n*N - o*O - p*P - q*Q - r*R - s*S - t*T - u*U - v*V - w*W - x*X - y*Y - z*Z,
+                a*B + b*A + c*D - d*C + e*F - f*E - g*H + h*G + i*J - j*I + k*L - l*K + m*N - n*M - o*P + p*O + q*R - r*Q + s*T - t*S + u*V - v*U + w*X - x*W + y*Z - z*Y,
+                a*C - b*D + c*A + d*B + e*G + f*H - g*E - h*F + i*K + j*L - k*I - l*J - m*O + n*P + o*M - p*N + q*Q + r*R - s*O - t*P + u*U + v*V - w*S - x*T - y*Y + z*Z,
+                a*D + b*C - c*B + d*A + e*H - f*G + g*F - h*E + i*L + j*K + k*J + l*I - m*P - n*O + o*N + p*M - q*R - r*Q + s*P - t*O + u*V + v*U + w*T - x*S - y*Z - z*Y,
+                a*E - b*F - c*G - d*H + e*A + f*B + g*C + h*D + i*N - j*M - k*O - l*P - m*I + n*J + o*K - p*L + q*U - r*V + s*W - t*X + u*S + v*T + w*Y + x*Z - y*Q + z*R,
+                a*F + b*E - c*H + d*G - e*B + f*A - g*D + h*C + i*M + j*N - k*P - l*O + m*J - n*I + o*L - p*K - q*V - r*U + s*X + t*W - u*T + v*S - w*Z + x*Y + y*R + z*Q,
+                a*G + b*H + c*E - d*F - e*C + f*D + g*A - h*B + i*O + j*P + k*M - l*N - m*K - n*L + o*I + p*J + q*X + r*W - s*U + t*V - u*R + v*Q - w*S - x*Z + y*Y + z*T,
+                a*H - b*G + c*F + d*E - e*D - f*C + g*B + h*A + i*P - j*O + k*N + l*M - m*L - n*K - o*J - p*I + q*W + r*X + s*V - t*U + u*Q - v*R + w*Y - x*Z - y*T + z*S,
+                a*I - b*J - c*K - d*L - e*M - f*N - g*O - h*P + i*A + j*B + k*C + l*D + m*E + n*F + o*G + p*H + q*Q + r*R + s*S + t*T + u*U + v*V + w*W + x*X + y*Y + z*Z,
+                a*J + b*I - c*L + d*K - e*N + f*M - g*P + h*O - i*B + j*A - k*D + l*C - m*F + n*E - o*H + p*G + q*R - r*Q + s*T - t*S + u*V - v*U + w*X - x*W + y*Z - z*Y,
+                a*K + b*L + c*I - d*J - e*O - f*P + g*M + h*N - i*C - j*D + k*A + l*B - m*G - n*H + o*E + p*F + q*S + r*T - s*R - t*Q + u*X - v*W + w*U + x*V - y*Y + z*X,
+                a*L - b*K + c*J + d*I - e*P + f*O - g*N + h*M - i*D - j*C - k*B + l*A - m*H + n*G - o*F + p*E - q*T + r*S + s*Q - t*R + u*W - v*X + w*V + x*U - y*Z + z*Y,
+                a*M - b*N + c*O + d*P - e*I - f*J + g*K + h*L - i*E - j*F - k*G - l*H + m*A + n*B + o*C + p*D + q*U - r*V + s*W - t*X - u*S - v*T - w*Y + x*Z + y*R - z*Q,
+                a*N + b*M - c*P + d*O + e*J - f*I - g*L + h*K - i*F + j*E - k*H + l*G + m*B - n*A + o*D - p*C + q*V + r*U - s*X - t*W - u*Q + v*R - w*Z + x*Y + y*S - z*T,
+                a*O + b*P - c*N + d*M + e*K + f*L - g*I - h*J - i*G - j*H + k*E + l*F - m*C - n*D + o*A + p*B + q*W + r*X - s*U - t*V - u*R + v*Q + w*Y - x*Z - y*T + z*S,
+                a*P - b*O - c*M + d*N + e*L - f*K - g*J + h*I - i*H - j*G - k*F + l*E + m*D - n*C - o*B + p*A - q*X + r*W + s*V - t*U - u*Q + v*R - w*Y + x*Z + y*S - z*T,
+                a*Q - b*R - c*S - d*T - e*U - f*V - g*W - h*X - i*Y - j*Z - k*S - l*T - m*U - n*V - o*W - p*X - q*Y - r*Z + s*A + t*B + u*C + v*D + w*E + x*F + y*G + z*H,
+                a*R + b*Q - c*T + d*S - e*V + f*U - g*X + h*W - i*Z + j*Y + k*T + l*S - m*X - n*W + o*Q + p*P - q*B + r*A + s*D - t*C + u*F - v*E + w*H - x*G + y*J + z*I,
+                a*S + b*T + c*Q - d*R - e*W - f*X + g*U + h*V - i*Y - j*Z + k*U + l*V + m*S + n*T - o*Z - p*Y + q*C + r*D - s*A - t*B + u*G + v*H - w*E - x*F + y*I + z*J,
+                a*T - b*S + c*R + d*Q - e*X + f*W - g*V + h*U - i*Z + j*Y - k*V + l*U + m*T - n*S + o*Y + p*Z - q*D - r*C + s*B + t*A - u*H + v*G - w*F - x*E + y*J + z*I,
+                a*U - b*V - c*W - d*X - e*S - f*T - g*Q + h*R - i*Z - j*Y + k*V - l*U - m*X - n*W - o*S - p*T + q*F - r*E - s*H + t*G + u*I - v*J + w*C - x*B - y*G + z*F,
+                a*V + b*U - c*X + d*W - e*T + f*S - g*R + h*Q - i*Y + j*Z + k*U + l*V + m*W + n*X - o*Z - p*Y - q*G - r*H + s*E + t*F - u*J + v*I - w*B + x*A + y*D - z*C,
+                a*W + b*X + c*U - d*V - e*R - f*Q + g*S + h*T - i*X - j*W + k*V + l*U + m*Y + n*Z - o*U - p*V + q*J + r*I - s*F - t*E + u*K + v*L - w*A - x*B + y*H - z*G,
+                a*X - b*W + c*V + d*U - e*Q + f*R - g*T + h*S - i*Z + j*Y - k*U + l*V + m*W - n*X + o*Y + p*Z + q*I + r*J - s*E - t*F + u*L - v*K + w*B - x*A + y*G - z*H,
+                a*Y - b*Z - c*S - d*T - e*U - f*V - g*W - h*X + i*A + j*B + k*C + l*D + m*H + n*G + o*F + p*E + q*Q + r*R + s*S + t*T + u*X + v*W + w*V + x*U - y*K + z*L,
+                a*Z + b*Y - c*T + d*S - e*V + f*U - g*X + h*W + i*B - j*A + k*D - l*C + m*G - n*H + o*E + p*F + q*R - r*Q + s*T - t*S + u*W - v*X + w*V + x*U - y*L + z*K,
+                a*A - b*B - c*C - d*D - e*E - f*F - g*G - h*H - i*I - j*J - k*K - l*L - m*M - n*N - o*O - p*P - q*Q - r*R - s*S - t*T - u*U - v*V - w*W - x*X - y*Y - z*Z,
+                a*B + b*A + c*D - d*C + e*F - f*E - g*H + h*G + i*J - j*I + k*L - l*K + m*N - n*M - o*P + p*O + q*R - r*Q + s*T - t*S + u*V - v*U + w*X - x*W + y*Z - z*Y,
+                a*C - b*D + c*A + d*B + e*G + f*H - g*E - h*F + i*K + j*L - k*I - l*J - m*O + n*P + o*M - p*N + q*Q + r*R - s*O - t*P + u*U + v*V - w*S - x*T - y*Y + z*Z,
+                a*D + b*C - c*B + d*A + e*H - f*G + g*F - h*E + i*L + j*K + k*J + l*I - m*P - n*O + o*N + p*M - q*R - r*Q + s*P - t*O + u*V + v*U + w*T - x*S - y*Z - z*Y,
+                a*E - b*F - c*G - d*H + e*A + f*B + g*C + h*D + i*N - j*M - k*O - l*P - m*I + n*J + o*K - p*L + q*U - r*V + s*W - t*X + u*S + v*T + w*Y + x*Z - y*Q + z*R,
+                a*F + b*E - c*H + d*G - e*B + f*A - g*D + h*C + i*M + j*N - k*P - l*O + m*J - n*I + o*L - p*K - q*V - r*U + s*X + t*W - u*T + v*S - w*Z + x*Y + y*R + z*Q,
+                a*G + b*H + c*E - d*F - e*C + f*D + g*A - h*B + i*O + j*P + k*M - l*N - m*K - n*L + o*I + p*J + q*X + r*W - s*U + t*V - u*R + v*Q - w*S - x*Z + y*Y + z*T,
+                a*H - b*G + c*F + d*E - e*D - f*C + g*B + h*A + i*P - j*O + k*N + l*M - m*L - n*K - o*J - p*I + q*W + r*X + s*V - t*U + u*Q - v*R + w*Y - x*Z - y*T + z*S,
+                a*I - b*J - c*K - d*L - e*M - f*N - g*O - h*P + i*A + j*B + k*C + l*D + m*E + n*F + o*G + p*H + q*Q + r*R + s*S + t*T + u*U + v*V + w*W + x*X + y*Y + z*Z,
+                a*J + b*I - c*L + d*K - e*N + f*M - g*P + h*O - i*B + j*A - k*D + l*C - m*F + n*E - o*H + p*G + q*R - r*Q + s*T - t*S + u*V - v*U + w*X - x*W + y*Z - z*Y,
+                a*K + b*L + c*I - d*J - e*O - f*P + g*M + h*N - i*C - j*D + k*A + l*B - m*G - n*H + o*E + p*F + q*S + r*T - s*R - t*Q + u*X - v*W + w*U + x*V - y*Y + z*X,
+                a*L - b*K + c*J + d*I - e*P + f*O - g*N + h*M - i*D - j*C - k*B + l*A - m*H + n*G - o*F + p*E - q*T + r*S + s*Q - t*R + u*W - v*X + w*V + x*U - y*Z + z*Y,
+                a*M - b*N + c*O + d*P - e*I - f*J + g*K + h*L - i*E - j*F - k*G - l*H + m*A + n*B + o*C + p*D + q*U - r*V + s*W - t*X - u*S - v*T - w*Y + x*Z + y*R - z*Q,
+                a*N + b*M - c*P + d*O + e*J - f*I - g*L + h*K - i*F + j*E - k*H + l*G + m*B - n*A + o*D - p*C + q*V + r*U - s*X - t*W - u*Q + v*R - w*Z + x*Y + y*S - z*T,
+                a*O + b*P - c*N + d*M + e*K + f*L - g*I - h*J - i*G - j*H + k*E + l*F - m*C - n*D + o*A + p*B + q*W + r*X - s*U - t*V - u*R + v*Q + w*Y - x*Z - y*T + z*S,
+                a*P - b*O - c*M + d*N + e*L - f*K - g*J + h*I - i*H - j*G - k*F + l*E + m*D - n*C - o*B + p*A - q*X + r*W + s*V - t*U - u*Q + v*R - w*Y + x*Z + y*S - z*T,
+                a*Q - b*R - c*S - d*T - e*U - f*V - g*W - h*X - i*Y - j*Z - k*S - l*T - m*U - n*V - o*W - p*X - q*Y - r*Z + s*A + t*B + u*C + v*D + w*E + x*F + y*G + z*H,
+                a*R + b*Q - c*T + d*S - e*V + f*U - g*X + h*W - i*Z + j*Y + k*T + l*S - m*X - n*W + o*Q + p*P - q*B + r*A + s*D - t*C + u*F - v*E + w*H - x*G + y*J + z*I,
+                a*S + b*T + c*Q - d*R - e*W - f*X + g*U + h*V - i*Y - j*Z + k*U + l*V + m*S + n*T - o*Z - p*Y + q*C + r*D - s*A - t*B + u*G + v*H - w*E - x*F + y*I + z*J,
+                a*T - b*S + c*R + d*Q - e*X + f*W - g*V + h*U - i*Z + j*Y - k*V + l*U + m*T - n*S + o*Y + p*Z - q*D - r*C + s*B + t*A - u*H + v*G - w*F - x*E + y*J + z*I,
+                a*U - b*V - c*W - d*X - e*S - f*T - g*Q + h*R - i*Z - j*Y + k*V - l*U - m*X - n*W - o*S - p*T + q*F - r*E - s*H + t*G + u*I - v*J + w*C - x*B - y*G + z*F,
+                a*V + b*U - c*X + d*W - e*T + f*S - g*R + h*Q - i*Y + j*Z + k*U + l*V + m*W + n*X - o*Z - p*Y - q*G - r*H + s*E + t*F - u*J + v*I - w*B + x*A + y*D - z*C,
+                a*W + b*X + c*U - d*V - e*R - f*Q + g*S + h*T - i*X - j*W + k*V + l*U + m*Y + n*Z - o*U - p*V - q*H + r*G + s*F - t*I + u*J + v*B - w*A - x*D + y*C - z*G,
+                a*X - b*W + c*V + d*U - e*Q + f*R - g*T + h*S - i*Z + j*Y - k*U + l*V + m*W - n*X + o*Y + p*Z + q*I + r*J - s*E - t*F + u*L - v*K + w*B - x*A + y*G - z*H,
+                a*Y - b*Z - c*S - d*T - e*U - f*V - g*W - h*X + i*A + j*B + k*C + l*D + m*H + n*G + o*F + p*E + q*Q + r*R + s*S + t*T + u*X + v*W + w*V + x*U - y*K + z*L,
+                a*Z + b*Y - c*T + d*S - e*V + f*U - g*X + h*W + i*B - j*A + k*D - l*C + m*G - n*H + o*E + p*F + q*R - r*Q + s*T - t*S + u*W - v*X + w*V + x*U - y*L + z*K,
+                a*A - b*B - c*C - d*D - e*E - f*F - g*G - h*H - i*I - j*J - k*K - l*L - m*M - n*N - o*O - p*P - q*Q - r*R - s*S - t*T - u*U - v*V - w*W - x*X - y*Y - z*Z,
+                a*B + b*A + c*D - d*C + e*F - f*E - g*H + h*G + i*J - j*I + k*L - l*K + m*N - n*M - o*P + p*O + q*R - r*Q + s*T - t*S + u*V - v*U + w*X - x*W + y*Z - z*Y,
+                a*C - b*D + c*A + d*B + e*G + f*H - g*E - h*F + i*K + j*L - k*I - l*J - m*O + n*P + o*M - p*N + q*Q + r*R - s*O - t*P + u*U + v*V - w*S - x*T - y*Y + z*Z,
+                a*D + b*C - c*B + d*A + e*H - f*G + g*F - h*E + i*L + j*K + k*J + l*I - m*P - n*O + o*N + p*M - q*R - r*Q + s*P - t*O + u*V + v*U + w*T - x*S - y*Z - z*Y,
+                a*E - b*F - c*G - d*H + e*A + f*B + g*C + h*D + i*N - j*M - k*O - l*P - m*I + n*J + o*K - p*L + q*U - r*V + s*W - t*X + u*S + v*T + w*Y + x
+
+
+
+
+
+
+class Sedenion:
+    def __init__(self, components):
+        self.components = components
+
+    def __repr__(self):
+        return f"Sedenion({self.components})"
+
+    def __add__(self, other):
+        if isinstance(other, Sedenion):
+            new_components = [c1 + c2 for c1, c2 in zip(self.components, other.components)]
+            return Sedenion(new_components)
+        raise TypeError("Unsupported operand type for addition")
+
+    def __sub__(self, other):
+        if isinstance(other, Sedenion):
+            new_components = [c1 - c2 for c1, c2 in zip(self.components, other.components)]
+            return Sedenion(new_components)
+        raise TypeError("Unsupported operand type for subtraction")
+
+    def __mul__(self, other):
+        if isinstance(other, Sedenion):
+            new_components = [c1 * c2 for c1, c2 in zip(self.components, other.components)]
+            return Sedenion(new_components)
+        raise TypeError("Unsupported operand type for multiplication")
+
+
+class Number64D:
+    def __init__(self, components):
+        self.components = components
+
+    def __repr__(self):
+        return f"Number64D({self.components})"
+
+    def __add__(self, other):
+        if isinstance(other, Number64D):
+            new_components = [c1 + c2 for c1, c2 in zip(self.components, other.components)]
+            return Number64D(new_components)
+        raise TypeError("Unsupported operand type for addition")
+
+    def __sub__(self, other):
+        if isinstance(other, Number64D):
+            new_components = [c1 - c2 for c1, c2 in zip(self.components, other.components)]
+            return Number64D(new_components)
+        raise TypeError("Unsupported operand type for subtraction")
+
+    def __mul__(self, other):
+        if isinstance(other, Number64D):
+            new_components = [c1 * c2 for c1, c2 in zip(self.components, other.components)]
+            return Number64D(new_components)
+        raise TypeError("Unsupported operand type for multiplication")
+
+
 class ModularNumber:
     def __init__(self, value, modulus):
         self.value = value % modulus
