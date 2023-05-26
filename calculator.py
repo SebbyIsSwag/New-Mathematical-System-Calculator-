@@ -53,9 +53,13 @@ class ZerothRootNumber:
     def __ne__(self, other):
         return not self.__eq__(other)
 
+def ln(x):
+    return math.log(x, math.e)
 
-def log(x):
-    return math.log(x)
+
+
+def log(x, base):
+    return math.log(x, base)
 
 
 def lg(x):
