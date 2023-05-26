@@ -13,6 +13,89 @@ Top_Small = float("-inf")
 # Define the unsigned infinity
 u_infinity = float("inf")
 
+class ZerothRootNumber:
+    def __init__(self, x):
+        self.x = x
+
+    def __str__(self):
+        return str(self.x) + "0_r"
+
+    def __add__(self, other):
+        if isinstance(other, ZerothRootNumber):
+            return ZerothRootNumber(self.x + other.x)
+        else:
+            return NotImplemented
+
+    def __sub__(self, other):
+        if isinstance(other, ZerothRootNumber):
+            return ZerothRootNumber(self.x - other.x)
+        else:
+            return NotImplemented
+
+    def __mul__(self, other):
+        if isinstance(other, ZerothRootNumber):
+            return ZerothRootNumber(self.x * other.x)
+        else:
+            return NotImplemented
+
+    def __pow__(self, n):
+        if n == 0:
+            return ZerothRootNumber(1)
+        else:
+            return self * (self ** (n - 1))
+
+    def __eq__(self, other):
+        if isinstance(other, ZerothRootNumber):
+            return self.x == other.x
+        else:
+            return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+
+def log(x):
+    return math.log(x)
+
+
+def lg(x):
+    return math.log10(x)
+
+
+def dozenal(operation):
+    # Perform operation in base-12
+    # Replace 10 with 'A' and 11 with 'B'
+    operation = operation.replace('10', 'A')
+    operation = operation.replace('11', 'B')
+
+    # Convert back to decimal for evaluation
+    operation = int(operation, 12)
+    return eval(str(operation))
+
+
+def sexagesimal(operation):
+    # Perform operation in base-60
+    operation = int(operation, 60)
+    return eval(str(operation))
+
+
+def octal(operation):
+    # Perform operation in base-8
+    operation = int(operation, 8)
+    return eval(str(operation))
+
+
+def hexadecimal(operation):
+    # Perform operation in base-16
+    operation = int(operation, 16)
+    return eval(str(operation))
+
+
+def binary(operation):
+    # Perform operation in base-2
+    operation = int(operation, 2)
+    return eval(str(operation))
+
 class Trigintaduonion:
     def __init__(self, components):
         self.components = components
