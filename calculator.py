@@ -185,21 +185,16 @@ def binary(operation):
 class Trigintaduonion:
     def __init__(self, components):
         self.components = components
-
     def __repr__(self):
         return f"Trigintaduonion({self.components})"
-
     def __add__(self, other):
         if isinstance(other, Trigintaduonion):
             new_components = [c1 + c2 for c1, c2 in zip(self.components, other.components)]
-            return Trigintaduonion(new_components)
-        raise TypeError("Unsupported operand type for addition")
-
+            return Trigintaduonion(new_components))
     def __sub__(self, other):
         if isinstance(other, Trigintaduonion):
             new_components = [c1 - c2 for c1, c2 in zip(self.components, other.components)]
             return Trigintaduonion(new_components)
-        raise TypeError("Unsupported operand type for subtraction")
     def __mul__(self, other):
         if isinstance(other, Trigintaduonion):
             a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z = self.components
@@ -270,83 +265,85 @@ class Trigintaduonion:
 
 
 class Sedenion:
-    def __init__(self, components):
+    def __init__(self, *components):
         self.components = components
-
     def __repr__(self):
         return f"Sedenion({self.components})"
-
     def __add__(self, other):
+        if isinstance(self, other):
+            new_components = {c + d for c, d in zip(self.components, other.components)}
+            return Sedenion(*new_components)
         if isinstance(other, Sedenion):
             new_components = [c1 + c2 for c1, c2 in zip(self.components, other.components)]
             return Sedenion(new_components)
-        raise TypeError("Unsupported operand type for addition")
-
     def __sub__(self, other):
         if isinstance(other, Sedenion):
             new_components = [c1 - c2 for c1, c2 in zip(self.components, other.components)]
             return Sedenion(new_components)
-        raise TypeError("Unsupported operand type for subtraction")
-
     def __mul__(self, other):
         if isinstance(other, Sedenion):
-            new_components = [c1 * c2 for c1, c2 in zip(self.components, other.components)]
-            return Sedenion(new_components)
-        raise TypeError("Unsupported operand type for multiplication")
+            if isinstance(type(other), type(self)):
+                new_components = [c1 * c2 for c1, c2 in zip(self.components, other.components)]
+                return Sedenion(new_components)
+            else:
+                return NotImplemented
+
 
 
 class Number64D:
     def __init__(self, components):
         self.components = components
-
     def __repr__(self):
         return f"Number64D({self.components})"
-
     def __add__(self, other):
         if isinstance(other, Number64D):
             new_components = [c1 + c2 for c1, c2 in zip(self.components, other.components)]
             return Number64D(new_components)
-        raise TypeError("Unsupported operand type for addition")
-
+        
+        if isinstance(other, int):
+            new_components = [c1 + other for c1 in self.components]
+            return Number64D(new_components)
+    
     def __sub__(self, other):
         if isinstance(other, Number64D):
             new_components = [c1 - c2 for c1, c2 in zip(self.components, other.components)]
             return Number64D(new_components)
-        raise TypeError("Unsupported operand type for subtraction")
-
+        
+        if isinstance(other, int):
+            new_components = [c1 - other for c1 in self.components]
+            return Number64D(new_components)
+        
     def __mul__(self, other):
         if isinstance(other, Number64D):
             new_components = [c1 * c2 for c1, c2 in zip(self.components, other.components)]
             return Number64D(new_components)
-        raise TypeError("Unsupported operand type for multiplication")
+        
+        if isinstance(other, int):
+            new_components = [c1 * other for c1 in self.components]
+            return Number64D(new_components)
 
 
 class ModularNumber:
     def __init__(self, value, modulus):
         self.value = value % modulus
         self.modulus = modulus
-
     def __repr__(self):
         return f"{self.value} (mod {self.modulus})"
-
     def __add__(self, other):
         if isinstance(other, ModularNumber) and self.modulus == other.modulus:
             value = (self.value + other.value) % self.modulus
             return ModularNumber(value, self.modulus)
-        raise TypeError("Unsupported operand type for addition")
-
+        return ModularNumber((self.value + other) % self.modulus, self.modulus)
     def __sub__(self, other):
         if isinstance(other, ModularNumber) and self.modulus == other.modulus:
             value = (self.value - other.value) % self.modulus
             return ModularNumber(value, self.modulus)
-        raise TypeError("Unsupported operand type for subtraction")
-
+        return ModularNumber((self.value - other) % self.modulus, self.modulus)
     def __mul__(self, other):
         if isinstance(other, ModularNumber) and self.modulus == other.modulus:
             value = (self.value * other.value) % self.modulus
             return ModularNumber(value, self.modulus)
-        raise TypeError("Unsupported operand type for multiplication")
-
+        return ModularNumber((self.value * other) % self.modulus, self.modulus)
     def mod(self, modulus):
         return ModularNumber(self.value, modulus)
 
@@ -357,10 +354,8 @@ class SplitQuaternion:
         self.split_imaginary = split_imaginary
         self.imaginary_1 = imaginary_1
         self.imaginary_2 = imaginary_2
-
     def __repr__(self):
         return f"{self.real} + {self.split_imaginary}i + {self.imaginary_1}j + {self.imaginary_2}k"
-
     def __add__(self, other):
         if isinstance(other, SplitQuaternion):
             real = self.real + other.real
@@ -368,8 +363,6 @@ class SplitQuaternion:
             imaginary_1 = self.imaginary_1 + other.imaginary_1
             imaginary_2 = self.imaginary_2 + other.imaginary_2
             return SplitQuaternion(real, split_imaginary, imaginary_1, imaginary_2)
-        raise TypeError("Unsupported operand type for addition")
-
     def __sub__(self, other):
         if isinstance(other, SplitQuaternion):
             real = self.real - other.real
@@ -377,20 +370,8 @@ class SplitQuaternion:
             imaginary_1 = self.imaginary_1 - other.imaginary_1
             imaginary_2 = self.imaginary_2 - other.imaginary_2
             return SplitQuaternion(real, split_imaginary, imaginary_1, imaginary_2)
-        raise TypeError("Unsupported operand type for subtraction")
-
     def __mul__(self, other):
         if isinstance(other, SplitQuaternion):
-            real = self.real * other.real - self.split_imaginary * other.split_imaginary \
-                   - self.imaginary_1 * other.imaginary_1 - self.imaginary_2 * other.imaginary_2
-            split_imaginary = self.real * other.split_imaginary + self.split_imaginary * other.real \
-                              + self.imaginary_1 * other.imaginary_2 - self.imaginary_2 * other.imaginary_1
-            imaginary_1 = self.real * other.imaginary_1 + self.imaginary_1 * other.real \
-                          + self.split_imaginary * other.imaginary_2 + self.imaginary_2 * other.split_imaginary
-            imaginary_2 = self.real * other.imaginary_2 + self.imaginary_2 * other.real \
-                          - self.split_imaginary * other.imaginary_1 + self.imaginary_1 * other.split_imaginary
-            return SplitQuaternion(real, split_imaginary, imaginary_1, imaginary_2)
-        raise TypeError("Unsupported operand type for multiplication")
 
 
 class PolygonalNumber:
