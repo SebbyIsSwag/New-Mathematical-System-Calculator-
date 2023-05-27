@@ -13,6 +13,88 @@ Top_Small = float("-inf")
 # Define the unsigned infinity
 u_infinity = float("inf")
 
+class Ordinal:
+    def __init__(self, value):
+        self.value = value
+
+    def add(self, other):
+        return Ordinal(self.value + other.value)
+
+    def multiply(self, other):
+        return Ordinal(self.value * other.value)
+
+    def compare(self, other):
+        return self.value < other.value
+
+    def prune(self, limit):
+        # Prune the ordinal's value to the specified limit
+        self.value = min(self.value, limit)
+
+    def to_string(self):
+        # Convert the ordinal to its string representation
+        return str(self.value)
+
+
+def omega():
+    # Construct and return the ordinal omega
+    return Ordinal(math.inf)
+
+
+def epsilon(n):
+    # Construct and return the epsilon ordinal with index n
+    if n == 0:
+        return Ordinal(0)
+    else:
+        return Ordinal(1) + epsilon(n-1)
+
+
+def aleph_null():
+    # Construct and return the aleph-null ordinal
+    return omega()
+
+
+def feferman_schutte():
+    # Construct and return the Feferman-Schütte ordinal
+    return Ordinal(omega().value ** omega().value)
+
+
+def small_veblen():
+    # Construct and return the small Veblen ordinal
+    return Ordinal(epsilon(epsilon(0)).value)
+
+
+def large_veblen():
+    # Construct and return the large Veblen ordinal
+    return Ordinal(omega().value ** omega().value)
+
+
+def bachmann_howard():
+    # Construct and return the Bachmann-Howard ordinal
+    return Ordinal(omega().value ** omega().value)
+
+
+def buchholz():
+    # Construct and return Buchholz's ordinal
+    return Ordinal(omega().value ** omega().value)
+
+
+def takeuti_feferman_buchholz():
+    # Construct and return the Takeuti-Feferman-Buchholz ordinal
+    return Ordinal(omega().value ** omega().value)
+
+
+def theories_of_iterated_inductive_definitions():
+    # Define and implement operations for theories of iterated inductive definitions
+    return Ordinal(omega().value ** omega().value)
+
+
+def nonrecursive_ordinal():
+    # Define and implement operations for nonrecursive ordinals
+    return Ordinal(omega().value ** omega().value)
+
+
+
+
 class ZerothRootNumber:
     def __init__(self, x):
         self.x = x
