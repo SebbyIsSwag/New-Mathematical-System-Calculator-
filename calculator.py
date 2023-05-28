@@ -7,26 +7,41 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 from pyquaternion import Quaternion
 
-# Define the bottom element
-Top_Small = float("-inf")
 
-# Define the unsigned infinity
-u_infinity = float("inf")
+
+
+
 
 constants = {}
 
 # Define a constant using the 'let' function
 def let(name, value):
     constants[name] = value
+    
+# Define the bottom element
+let(Top_Small, float("-inf"))
+Top_Small = constants['Top_Small']
+# Define the unsigned infinity
+let(u_infinity, float("inf")
+u_infinity = constants[u_infinity]
 
 # Define 'e' and 'pi' using the 'let' function
 let('e', math.e)
 let('pi', math.pi)
+let('cot', lambda x: 1 / math.tan(x))
+let('sec', lambda x: 1 / math.cos(x))
+
 
 
 # Access the constants using the defined names
 e = constants['e']
 pi = constants['pi']
+cot = constants['cot']
+sec = constants['sec']
+def sec(parameter):
+    constants['sec']*parameter
+def cot(parameter)
+    constants['cot']*parameter
 
 class Ordinal:
     def __init__(self, value):
