@@ -13,6 +13,16 @@ Top_Small = float("-inf")
 # Define the unsigned infinity
 u_infinity = float("inf")
 
+constants = {}
+
+# Define a constant using the 'let' function
+def let(name, value):
+    constants[name] = value
+
+# Define 'e' and 'pi' using the 'let' function
+let('e', math.e)
+let('pi', math.pi)
+
 class Ordinal:
     def __init__(self, value):
         self.value = value
