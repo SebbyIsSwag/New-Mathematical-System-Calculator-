@@ -23,6 +23,11 @@ def let(name, value):
 let('e', math.e)
 let('pi', math.pi)
 
+
+# Access the constants using the defined names
+e = constants['e']
+pi = constants['pi']
+
 class Ordinal:
     def __init__(self, value):
         self.value = value
