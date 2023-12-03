@@ -6,7 +6,7 @@ Copyleft (C) 2023 SebbyIsSwag <sebby.alish@gmail.com>
 
 DO WHATEVER YOU WANT TO WITH THIS I DON'T CARE.
  
-           Free, Piracy and Open Source LICENSE
+           Free, Cost-Free, Privacy, Security, Anonymous and Open Source (FCFPSAOS) LICENSE
   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 Use it in the public domain as long as you respect these rules:
  0. You just DO WHAT YOU WANT TO.
